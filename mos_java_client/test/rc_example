@@ -1,0 +1,4 @@
+export MOS_ACCESS="aa34ad9e821147c782782d0eb2681320"
+export MOS_SECRET="1d6995193044475f9e47747b975fc108"
+export MOS_URL="https://mosapi.meituan.com/mcs/v1"
+export MOS_REGION="Beijing"

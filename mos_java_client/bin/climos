@@ -1,0 +1,11 @@
+#!/bin/bash
+
+pushd $(dirname "$BASH_SOURCE") > /dev/null
+ROOT_DIR=$(cd .. && pwd)
+popd > /dev/null
+
+LIB_DIR=$ROOT_DIR/libs
+SDK_CLS_DIR=$ROOT_DIR/../mos_java_sdk/target/classes
+CLS_DIR=$ROOT_DIR/target/classes
+
+java -cp $CLS_DIR:$SDK_CLS_DIR:$LIB_DIR/btc-ascii-table-1.0.jar:$LIB_DIR/commons-codec-1.6.jar:$LIB_DIR/argparse4j-0.4.4.jar:$LIB_DIR/json-20140107.jar:$LIB_DIR/bcpkix-jdk15on-1.51.jar:$LIB_DIR/bcprov-jdk15on-1.51.jar com.meituan.mos.Shell $@

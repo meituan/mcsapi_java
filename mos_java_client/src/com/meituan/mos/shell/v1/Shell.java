@@ -78,7 +78,7 @@ public class Shell implements ShellInterface {
 			@CommandOption(name="--duration", metavar="<DURATION>", help="Reserved instance duration, in H or M, e.g. 72H, 1M"),
 			@CommandOption(name="--name", metavar="<NAME>", help="Optional instance name"),
 			@CommandOption(name="--keypair", metavar="<KEYPAIR>", help="SSH key pair name"),
-			@CommandOption(name="--datadisk", metavar="<DISKSIZE>", type=Integer.class, help="Extra disksize in 10GB!!"),
+			@CommandOption(name="--datadisk", metavar="<DISKSIZE>", type=Integer.class, help="Extra disksize in GB!!"),
 			@CommandOption(name="--bandwidth", metavar="<BANDWIDTH>", type=Integer.class, help="Extra external bandwidth in Mbps"),
 			@CommandOption(name="--zone", metavar="<ZONE>", help="Optional availability zone"),
 	})
@@ -217,7 +217,7 @@ public class Shell implements ShellInterface {
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
 			@CommandOption(name="instance_type", metavar="<INSTANCE_TYPE>", help="Instance type"),
 			@CommandOption(name="--duration", metavar="<DURATION>", help="Reserved instance duration, in H or M, e.g. 72H, 1M"),
-			@CommandOption(name="datadisk", metavar="<DISKSIZE>", type=Integer.class, help="Extra disksize in 10GB"),
+			@CommandOption(name="datadisk", metavar="<DISKSIZE>", type=Integer.class, help="Extra disksize in GB!!"),
 			@CommandOption(name="bandwidth", metavar="<BANDWIDTH>", type=Integer.class, help="Extra external bandwidth in Mbps")
 	})
 	public void do_ChangeInstanceType(Namespace args) throws Exception {

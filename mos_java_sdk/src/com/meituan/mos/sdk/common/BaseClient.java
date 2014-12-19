@@ -66,7 +66,9 @@ public class BaseClient {
 		params.put("Timestamp", getTimeStamp());
 		params.put("SignatureVersion", "2");
 		params.put("SignatureMethod", "HmacSHA256");
-		params.put("Region", region);
+		if (region != null && region.length() > 0) {
+			params.put("Region", region);
+		}
 		if (kwargs != null) {
 			Iterator keys = kwargs.keys();
 			while (keys.hasNext()) {

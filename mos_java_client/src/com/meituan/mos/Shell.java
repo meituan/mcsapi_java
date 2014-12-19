@@ -166,9 +166,9 @@ public class Shell {
 			if (secret == null) {
 				throw new Exception("Missing --mos-secret or env[MOS_SECRET");
 			}
-			if (region == null) {
-				throw new Exception("Missing --mos-region or env[MOS_REGION]");
-			}
+			//if (region == null) {
+			//	throw new Exception("Missing --mos-region or env[MOS_REGION]");
+			//}
 			if (invoke_func == null) {
 				throw new Exception("Missing subcommand");
 			}

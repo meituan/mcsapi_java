@@ -164,7 +164,7 @@ public class Client extends BaseClient {
 	 * @param imageid String 系统模板ID
 	 * @param itype String 虚拟机类型ID
 	 * @param keypair String 虚拟机使用的SSH密钥ID
-	 * @param datadisk_10GB int  指定创建虚拟机使用的额外数据盘，单位为10GB
+	 * @param datadisk_gb int  指定创建虚拟机使用的额外数据盘，单位为GB
 	 * @param bandwidth_mbps int 指定创建虚拟机使用的额外带宽，单位为Mbps
 	 * @param snapshotid String 创建虚拟机的虚拟机快照的ID
 	 * @param duration String 虚拟机租期, 缺省为'1M'，即一个月
@@ -174,7 +174,7 @@ public class Client extends BaseClient {
 	 * @throws Exception
 	 */
 	public JSONObject CreateInstance(String imageid, String itype, 
-			String keypair, int datadisk_10GB, int bandwidth_mbps,
+			String keypair, int datadisk_gb, int bandwidth_mbps,
 			String snapshotid,
 			String duration, String name, String zone) throws Exception {
 		JSONObject kwargs = new JSONObject();
@@ -186,8 +186,8 @@ public class Client extends BaseClient {
 			if (keypair != null) {
 				kwargs.put("KeyName", keypair);
 			}
-			if (datadisk_10GB > 0) {
-				kwargs.put("ExtraExtDisksize", datadisk_10GB*10);
+			if (datadisk_gb > 0) {
+				kwargs.put("ExtraExtDisksize", datadisk_gb);
 			}
 			if (bandwidth_mbps > 0) {
 				kwargs.put("ExtraExtBandwidth", bandwidth_mbps);
@@ -323,12 +323,12 @@ public class Client extends BaseClient {
 	 * @param iid String 虚拟机ID
 	 * @param itype String 指定更改的虚拟机类型
 	 * @param duration String 指定更改后的初始租期，缺省为'1M'，即一个月
-	 * @param datadisk_10GB int 指定创建虚拟机使用的额外数据盘，单位为10GB
+	 * @param datadisk_gb int 指定创建虚拟机使用的额外数据盘，单位为GB
 	 * @param bandwidth_mbps int 指定创建虚拟机使用的额外带宽，单位为Mbps
 	 * @throws Exception
 	 */
 	public void ChangeInstanceType(String iid, String itype, String duration,
-                            int datadisk_10GB, int bandwidth_mbps) throws Exception {
+                            int datadisk_gb, int bandwidth_mbps) throws Exception {
 		JSONObject kwargs = new JSONObject();
 		kwargs.put("InstanceId", iid);
 		kwargs.put("InstanceType", itype);
@@ -339,7 +339,7 @@ public class Client extends BaseClient {
 				throw new Exception("IIlegal duration format " + duration);
 			}
 		}
-		kwargs.put("ExtraExtDisksize", datadisk_10GB*10);
+		kwargs.put("ExtraExtDisksize", datadisk_gb);
 		kwargs.put("ExtraExtBandwidth", bandwidth_mbps);
 		Request("ChangeInstanceType", kwargs);
 	}

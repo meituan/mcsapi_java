@@ -18,12 +18,12 @@ import com.meituan.mos.sdk.v1.Client;
 
 public class Shell implements ShellInterface {
 	Client client = null;
-	
+
 	public void initClient(String key, String secret, String url, String region,
 			String format, int timeout, boolean debug) {
 		client = new Client(key, secret, url, region, format, timeout, debug);
 	}
-	
+
 	@CommandHelp(help="List instance types")
 	@CommandOptions(options = {
 			@CommandOption(name="--limit", metavar="<LIMIT>", type=Integer.class, help="Page limit"),
@@ -37,13 +37,13 @@ public class Shell implements ShellInterface {
 		JSONObject result = client.DescribeInstanceTypes(limit, offset, filters);
 		Utils.printList(result, "InstanceType", null);
 	}
-	
+
 	@CommandHelp(help="List all image templates")
 	public void do_DescribeTemplates(Namespace cmd) throws Exception {
 		JSONObject result = client.DescribeTemplates();
 		Utils.printList(result, "Template", null);
 	}
-	
+
 	@CommandHelp(help="Get balance")
 	public void do_GetBalance(Namespace args) throws Exception {
 		JSONObject result = client.GetBalance();
@@ -60,7 +60,7 @@ public class Shell implements ShellInterface {
 		String duration = Utils.getArgString(args, "duration", null);
 		client.RenewInstance(iid, duration);
 	}
-	
+
 	@CommandHelp(help="Query instance contract information")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance")
@@ -70,7 +70,7 @@ public class Shell implements ShellInterface {
 		JSONObject result = client.GetInstanceContractInfo(iid);
 		Utils.printDict(result);
 	}
-	
+
 	@CommandHelp(help="Create servers")
 	@CommandOptions(options={
 			@CommandOption(name="image", metavar="<IMAGE>", help="ID of image template"),
@@ -95,7 +95,7 @@ public class Shell implements ShellInterface {
 				);
 		Utils.printDict(val);
 	}
-	
+
 	@CommandHelp(help="Get status of an instance")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance")
@@ -130,12 +130,12 @@ public class Shell implements ShellInterface {
 		JSONObject val = client.DescribeInstances(
 				Utils.getArgStringArray(args, "id"),
 				Utils.getArgStringArray(args, "name"),
-				Utils.getArgInt(args, "limit", 0), 
+				Utils.getArgInt(args, "limit", 0),
 				Utils.getArgInt(args, "offset", 0),
 				Utils.getArgFilters(args));
 		Utils.printList(val, "Instance", null);
 	}
-	
+
 	@CommandHelp(help="List all disks of an instance")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
@@ -149,7 +149,7 @@ public class Shell implements ShellInterface {
 				Utils.getArgInt(args, "limit", 0),
 				Utils.getArgInt(args, "offset", 0),
 				Utils.getArgFilters(args));
-		Utils.printList(val, "InstanceVolume", null);	    
+		Utils.printList(val, "InstanceVolume", null);
 	}
 
 	@CommandHelp(help="List all network interfaces of an instance")
@@ -193,7 +193,7 @@ public class Shell implements ShellInterface {
 	public void do_RebootInstance(Namespace args) throws Exception {
 		client.RebootInstance(Utils.getArgString(args, "id", null));
 	}
-	
+
 	@CommandHelp(help="Terminate an instance")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance")
@@ -201,7 +201,7 @@ public class Shell implements ShellInterface {
 	public void do_TerminateInstance(Namespace args) throws Exception {
 		client.TerminateInstance(Utils.getArgString(args, "id", null));
 	}
-	
+
 	@CommandHelp(help="Rebuild root image of an instance")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
@@ -285,7 +285,7 @@ public class Shell implements ShellInterface {
 		String pubkey = Utils.fileGetContent(keyfile);
 		JSONObject val = client.ImportKeyPair(Utils.getArgString(args, "name", null), pubkey);
 		Utils.printDict(val);
-	}  
+	}
 
 	@CommandHelp(help="Delete a keypair")
 	@CommandOptions(options={
@@ -293,7 +293,7 @@ public class Shell implements ShellInterface {
 	})
 	public void do_DeleteKeyPair(Namespace args) throws Exception {
 		client.DeleteKeyPair(Utils.getArgString(args, "id", null));
-	}  
+	}
 
 	@CommandHelp(help="Save root disk to new image and upload to glance")
 	@CommandOptions(options={
@@ -314,7 +314,7 @@ public class Shell implements ShellInterface {
 	public void do_DeleteTemplate(Namespace args) throws Exception {
 		client.DeleteTemplate(Utils.getArgString(args, "id", null));
 	}
-	
+
 	@CommandHelp(help="Get details of all or specified instance snapshots")
 	@CommandOptions(options={
 			@CommandOption(name="--id", metavar="<ID>", action="append", help="ID of snapshots"),
@@ -329,12 +329,12 @@ public class Shell implements ShellInterface {
 				Utils.getArgStringArray(args, "id"),
 				Utils.getArgStringArray(args, "timestamp"),
 				Utils.getArgStringArray(args, "instance_id"),
-				Utils.getArgInt(args, "limit", 0), 
+				Utils.getArgInt(args, "limit", 0),
 				Utils.getArgInt(args, "offset", 0),
 				Utils.getArgFilters(args));
 		Utils.printList(val, "Snapshot", null);
 	}
-	
+
 	@CommandHelp(help="Create a snapshot for an instance")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
@@ -344,8 +344,8 @@ public class Shell implements ShellInterface {
 		client.CreateSnapshot(Utils.getArgString(args, "id", null),
 				Utils.getArgString(args, "name", null));
 	}
-	
-	
+
+
 	@CommandHelp(help="Delete a snapshot")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
@@ -353,8 +353,8 @@ public class Shell implements ShellInterface {
 	public void do_DeleteSnapshot(Namespace args) throws Exception {
 		client.DeleteSnapshot(Utils.getArgString(args, "id", null));
 	}
-	
-	
+
+
 	@CommandHelp(help="Restore an instance to a snapshot")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of instance"),
@@ -364,8 +364,8 @@ public class Shell implements ShellInterface {
 		client.RestoreSnapshot(Utils.getArgString(args, "id", null),
 				Utils.getArgString(args, "snapshotid", null));
 	}
-	
-	
+
+
 	@CommandHelp(help="Create an instance from a snapshot")
 	@CommandOptions(options={
 			@CommandOption(name="id", metavar="<ID>", help="ID of snapshot"),
@@ -382,8 +382,7 @@ public class Shell implements ShellInterface {
 				Utils.getArgString(args, "zone", null));
 		Utils.printDict(val);
 	}
-	
-	
+
 	@CommandHelp(help="Get details of all zones")
 	@CommandOptions(options={
 			@CommandOption(name="--limit", metavar="<LIMIT>", type=Integer.class, help="Limit"),
@@ -391,8 +390,116 @@ public class Shell implements ShellInterface {
 	})
 	public void do_DescribeAvailabilityZones(Namespace args) throws Exception {
 		JSONObject val = client.DescribeAvailabilityZones(
-				Utils.getArgInt(args, "limit", 0), 
+				Utils.getArgInt(args, "limit", 0),
 				Utils.getArgInt(args, "offset", 0));
 		Utils.printList(val, "AvailabilityZone", null);
 	}
+
+
+	/**
+	 *	FIP API
+	 *
+	 */
+	@CommandHelp(help="Create a FIP")
+	@CommandOptions(options={
+			@CommandOption(name="name", metavar="<NAME>", help="Name of FIP"),
+			@CommandOption(name="--billing_model", metavar="<BillingModel>", help="Default bandwidth"),
+			@CommandOption(name="--availability_zone_id", metavar="<AvailabilityZoneId>", help="Default bandwidth"),
+	})
+	public void do_AllocateAddress(Namespace args) throws Exception {
+		JSONObject val = client.AllocateAddress(
+				Utils.getArgString(args, "name", null),
+				Utils.getArgString(args, "billing_model", "bandwidth"),
+				Utils.getArgString(args, "availability_zone_id", null));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Get all fip or specified instance fip")
+	@CommandOptions(options={
+			@CommandOption(name="--allocation_ids", metavar="<AllocationIds>", action="append", help="ID of FIPS"),
+			@CommandOption(name="--limit", metavar="<LIMIT>", type=Integer.class, help="Limit"),
+			@CommandOption(name="--offset", metavar="<OFFSET>", type=Integer.class, help="Offset"),
+			@CommandOption(name="--filter", metavar="<FILTER>", action="append", help="Filter")
+	})
+	public void do_DescribeAddresses(Namespace args) throws Exception {
+		JSONObject val = client.DescribeAddresses(
+				Utils.getArgStringArray(args, "allocation_ids"),
+				Utils.getArgInt(args, "limit", 0),
+				Utils.getArgInt(args, "offset", 0),
+				Utils.getArgFilters(args));
+		Utils.printList(val, "Address", null);
+	}
+
+	@CommandHelp(help="Config a FIP")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+			@CommandOption(name="--name", metavar="<NAME>", help="Name of FIP"),
+	})
+	public void do_ConfigAddress(Namespace args) throws Exception {
+		JSONObject val = client.ConfigAddress(
+				Utils.getArgString(args, "allocation_id", null),
+				Utils.getArgString(args, "name", null));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Config bandwidth for a FIP")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+			@CommandOption(name="--bandwidth", metavar="<NAME>", type=Integer.class, help="bandwidth of FIP"),
+	})
+	public void do_ConfigAddressBandwidth(Namespace args) throws Exception {
+		JSONObject val = client.ConfigAddressBandwidth(
+				Utils.getArgString(args, "allocation_id", null),
+				Utils.getArgInt(args, "bandwidth", 0));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Delete a FIP")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+	})
+	public void do_ReleaseAddress(Namespace args) throws Exception {
+		JSONObject val = client.ReleaseAddress(
+				Utils.getArgString(args, "allocation_id", null));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Associate fip to resource")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+			@CommandOption(name="--association_type", metavar="<NAME>", help="Type of band resource, you can choose(server, elb)"),
+			@CommandOption(name="--instance_id", metavar="<NAME>", help="ID of band resource"),
+			@CommandOption(name="--bandwidth", metavar="<NAME>", type=Integer.class, help="bandwidth of FIP"),
+	})
+	public void do_AssociateAddress(Namespace args) throws Exception {
+		JSONObject val = client.AssociateAddress(
+				Utils.getArgString(args, "allocation_id", null),
+				Utils.getArgString(args, "association_type", null),
+				Utils.getArgString(args, "instance_id", null),
+				Utils.getArgInt(args, "bandwidth", 0));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Disassociate a FIP")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+	})
+	public void do_DisassociateAddress(Namespace args) throws Exception {
+		JSONObject val = client.DisassociateAddress(
+				Utils.getArgString(args, "allocation_id", null));
+		Utils.printDict(val);
+	}
+
+	@CommandHelp(help="Replace a FIP whith New FIP")
+	@CommandOptions(options={
+			@CommandOption(name="allocation_id", metavar="<AllocationId>", help="ID of FIP"),
+			@CommandOption(name="--newId", metavar="<NewAllocationId>", help="ID of new FIP"),
+	})
+	public void do_ReplaceAddress(Namespace args) throws Exception {
+		JSONObject val = client.ReplaceAddress(
+				Utils.getArgString(args, "allocation_id", null),
+				Utils.getArgString(args, "newId", null));
+		Utils.printDict(val);
+	}
+
 }

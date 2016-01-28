@@ -37,7 +37,7 @@ public class BaseClient {
 	private String request_url;
 	private int timeout;
 	private boolean debug;
-	
+
 	public BaseClient(String key, String secret, String url, String region,
 			String format, int timeout, boolean debug) {
 		this.access_id = key;
@@ -83,13 +83,13 @@ public class BaseClient {
 								params.put(key + "." + i, array.getString(i - 1));
 							}
 						} catch (Exception e) {
-	
+
 						}
 					} else {
 						params.put(key, value.toString());
 					}
 				} catch (Exception e) {
-	
+
 				}
 			}
 		}
@@ -106,32 +106,32 @@ public class BaseClient {
 		String request_uri = requrl.getPath();
 		String signature = SignedRequestsHelper.signRequest(access_secret,
 				endpoint, request_uri, REQUEST_METHOD, params);
-		
+
 		params.put("Signature", signature);
-		
+
 		String data = SignedRequestsHelper.canonicalize(params);
-		
+
 		if (debug) {
 			System.out.println("Request data: " + data);
 		}
-		
-		if (requrl.getProtocol() == "https") {
+
+		if (requrl.getProtocol().equals("https")) {
 			Utils.disableHttpsVerification();
 		}
-		
+
 		HttpURLConnection req = (HttpURLConnection) requrl.openConnection();
-		
+
 		req.setRequestMethod(REQUEST_METHOD);
 		req.setRequestProperty("User-Agent", USER_AGENT);
 		req.setInstanceFollowRedirects(false);
 		req.setConnectTimeout(timeout*1000);
 		req.setReadTimeout(timeout*1000);
-		
+
 		req.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-					
+
 		req.setRequestProperty("Content-Length", Integer.toString(data.getBytes().length));
-		req.setRequestProperty("Content-Language", "en-US");  
-					
+		req.setRequestProperty("Content-Language", "en-US");
+
 		req.setUseCaches (false);
 		req.setDoInput(true);
 		req.setDoOutput(true);
@@ -155,7 +155,7 @@ public class BaseClient {
 					+ ")");
 		}
 	}
-	
+
 	private String _inputStream2String(InputStream input) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(input));
 		String inputLine;
@@ -211,5 +211,5 @@ public class BaseClient {
         	}
         }
 	}
-	
+
 }

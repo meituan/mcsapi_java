@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pushd $(dirname "$BASH_SOURCE") > /dev/null
+ROOT_DIR=$(pwd)
+popd > /dev/null
+
+LIB_DIR=$ROOT_DIR/libs
+
+CP=.
+
+for lib in $(ls $LIB_DIR)
+do
+    CP=$CP:$LIB_DIR/$lib
+done
+
+java -cp $CP com.meituan.mos.Shell $@

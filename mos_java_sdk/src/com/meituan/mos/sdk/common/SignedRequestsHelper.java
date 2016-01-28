@@ -15,7 +15,7 @@ import org.apache.commons.codec.binary.Base64;
 public class SignedRequestsHelper {
 	private static final String UTF8_CHARSET = "UTF-8";
 	private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
-	
+
 	private String request_uri;
 	private String request_method; // must be uppercase
 	private String endpoint; // must be lowercase
@@ -36,7 +36,7 @@ public class SignedRequestsHelper {
 			mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
 			mac.init(secretKeySpec);
 		}catch(Exception e) {
-			
+
 		}
 	}
 
@@ -44,9 +44,14 @@ public class SignedRequestsHelper {
 		SortedMap<String, String> sortedParamMap = new TreeMap<String, String>(
 				params);
 		String canonicalQS = canonicalize(sortedParamMap);
+
+		if (request_uri == ""){
+			request_uri = "/";
+		}
+
 		String toSign = request_method + "\n" + endpoint + "\n" + request_uri
 				+ "\n" + canonicalQS;
-		//System.out.println("To sign: " + toSign);
+		// System.out.println("To sign: " + toSign);
 		return  hmac(toSign);
 	}
 
@@ -97,7 +102,7 @@ public class SignedRequestsHelper {
 		}
 		return out;
 	}
-	
+
 	public static String signRequest(String secret, String endpoint, String path, String method, Map<String, String> params) {
 		SignedRequestsHelper helper = new SignedRequestsHelper(secret, endpoint, path, method);
 		return helper.sign(params);

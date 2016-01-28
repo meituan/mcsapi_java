@@ -13,7 +13,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * v1 API Client 构造函数
-	 * 
+	 *
 	 * @param key String MOS ACCESS KEY
 	 * @param secret String MOS ACCESS Secret
 	 * @param url String MOS API URL
@@ -29,10 +29,10 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取所有虚拟机类型
-	 * 
+	 *
 	 * @param limit int 最大返回数量，用于分页控制
 	 * @param offset int 返回偏移量，用于分页控制
-	 * @param filters Map<String, List<String>> 过滤条件，key/value分别指定过滤字段名称和值，支持的字段名称为：name, status 
+	 * @param filters Map<String, List<String>> 过滤条件，key/value分别指定过滤字段名称和值，支持的字段名称为：name, status
 	 * @return JSONObject 包含系统支持的虚拟机类型列表
 	 * @throws Exception
 	 */
@@ -45,7 +45,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获得所有虚拟机模板
-	 * 
+	 *
 	 * @return 获得所有虚拟机模板
 	 * @throws Exception
 	 */
@@ -53,10 +53,10 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeTemplates", null);
 		return Utils.getJSONResult(result, "TemplateSet");
 	}
-	
+
 	/**
 	 * 获取帐户余额
-	 * 
+	 *
 	 * @return 帐户余额和最近更新时间
 	 * @throws Exception
 	 */
@@ -64,17 +64,17 @@ public class Client extends BaseClient {
 		JSONObject result = Request("GetBalance", null);
 		return result;
 	}
-	
+
 	/**
 	 * 获得所有虚拟机
-	 * 
+	 *
 	 * @param ids String[] 期望获取的虚拟机ID列表
 	 * @param names String[] 期望获取信息的虚拟机名称列表
 	 * @param limit int 最多返回数量
 	 * @param offset int 返回虚拟机的偏移量，用于分页显示
 	 * @param filters Map<String, List<String>> 过滤器，一个dict，包含过滤字段名和值，可能过滤字段为：name, status
 	 * @return JSONObject 包含虚拟机列表
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public JSONObject DescribeInstances(String[] ids, String[] names, int limit, int offset, Map<String, List<String>> filters) throws Exception {
 		JSONObject kwargs = new JSONObject();
@@ -88,10 +88,10 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeInstances", kwargs);
 		return Utils.getJSONResult(result, "InstanceSet");
 	}
-	
+
 	/**
 	 * 获取指定虚拟机的虚拟磁盘信息
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param limit int  最大返回数量，用于分页控制
 	 * @param offset int 返回的偏移量，用于分页控制
@@ -109,7 +109,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取指定虚拟机的网络接口（虚拟网卡）信息
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param limit int 最大返回数量，用于分页控制
 	 * @param offset int 返回的偏移量，用于分页控制
@@ -124,10 +124,10 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeInstanceNetworkInterfaces", kwargs);
 		return Utils.getJSONResult(result, "InstanceNetworkInterfaceSet");
 	}
- 
+
 	/**
 	 * 虚拟机租期续费
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param duration String 续费租期，单位为H(小时)或M(月), 缺省为'1M'，即一个月
 	 * @throws Exception
@@ -144,10 +144,10 @@ public class Client extends BaseClient {
 		}
 		Request("RenewInstance", kwargs);
 	}
- 
+
 	/**
 	 * 获取虚拟机的租期信息
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @return 虚拟机租期信息，包含过期时间、自动删除时间
 	 * @throws Exception
@@ -160,7 +160,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 创建虚拟机
-	 * 
+	 *
 	 * @param imageid String 系统模板ID
 	 * @param itype String 虚拟机类型ID
 	 * @param keypair String 虚拟机使用的SSH密钥ID
@@ -173,7 +173,7 @@ public class Client extends BaseClient {
 	 * @return 创建成功的虚拟机信息
 	 * @throws Exception
 	 */
-	public JSONObject CreateInstance(String imageid, String itype, 
+	public JSONObject CreateInstance(String imageid, String itype,
 			String keypair, int datadisk_gb, int bandwidth_mbps,
 			String snapshotid,
 			String duration, String name, String zone) throws Exception {
@@ -214,7 +214,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取虚拟机的状态
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @return 虚拟机状态字符串
 	 * @throws Exception
@@ -228,7 +228,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取虚拟机的Login帐户信息
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param key_file String 私钥文件路径，路过虚拟机使用了SSH密钥，需要指定私钥解密password
 	 * @return 虚拟机Login信息，包含帐户名称、密码，如果使用SSH密钥，则还包含密钥ID和名称
@@ -252,7 +252,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 启动虚拟机
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @throws Exception
 	 */
@@ -264,7 +264,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 停止虚拟机
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param force boolean 是否强制停止虚拟机
 	 * @throws Exception
@@ -280,7 +280,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 重启虚拟机
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @throws Exception
 	 */
@@ -289,7 +289,7 @@ public class Client extends BaseClient {
 		kwargs.put("InstanceId", iid);
 		Request("RebootInstance", kwargs);
 	}
-	
+
 	/**
 	 * 删除虚拟机
 	 * @param iid String 虚拟机ID
@@ -300,10 +300,10 @@ public class Client extends BaseClient {
 		kwargs.put("InstanceId", iid);
 		Request("TerminateInstance", kwargs);
 	}
-	
+
 	/**
 	 * 重置虚拟机系统磁盘
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param image_id String 将虚拟机系统磁盘用指定镜像模板重置，如果无该参数，则使用原镜像模板重置
 	 * @throws Exception
@@ -316,10 +316,10 @@ public class Client extends BaseClient {
 		}
 		Request("RebuildInstanceRootImage", kwargs);
 	}
-	
+
 	/**
 	 * 更改虚拟机类型
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param itype String 指定更改的虚拟机类型
 	 * @param duration String 指定更改后的初始租期，缺省为'1M'，即一个月
@@ -346,7 +346,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取虚拟机的metadata
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @return JSONObject 一个dict包含虚拟机所有metadata的key/value
 	 * @throws Exception
@@ -360,7 +360,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 修改虚拟机的metadata
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param data Map<String, String> 需要增加或修改的metadata信息
 	 * @throws Exception
@@ -381,7 +381,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 获取用户的SSH密钥对
-	 * 
+	 *
 	 * @param limit int 最大返回数量，用于分页控制
 	 * @param offset int 返回偏移量，用于分页控制
 	 * @param filters Map<String, List<String>> 过滤条件，key/value分别指定过滤字段名称和值，支持的字段名称为：name
@@ -394,10 +394,10 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeKeyPairs", kwargs);
 		return Utils.getJSONResult(result, "KeyPairSet");
 	}
-	
+
 	/**
 	 * 导入一个用户的SSH公钥，并创建一个SSH密钥对
-	 * 
+	 *
 	 * @param name String 密钥对名称
 	 * @param pubkey String SSH公钥信息
 	 * @return JSONObject  创建的SSH密钥对信息
@@ -413,7 +413,7 @@ public class Client extends BaseClient {
 
 	/**
 	 * 删除一个SSH密钥对
-	 * 
+	 *
 	 * @param kid String 密钥对ID
 	 * @throws Exception
 	 */
@@ -422,10 +422,10 @@ public class Client extends BaseClient {
 		kwargs.put("KeyName", kid);
 		Request("DeleteKeyPair", kwargs);
 	}
-	
+
 	/**
 	 * 保存虚拟机的模板
-	 * 
+	 *
 	 * @param iid String 虚拟机ID
 	 * @param name String 模板名称
 	 * @param notes String 保存模板的说明
@@ -443,7 +443,7 @@ public class Client extends BaseClient {
 
     /**
      * 删除一个模板
-     * 
+     *
      * @param tid String 模板ID
      * @throws Exception
      */
@@ -453,10 +453,10 @@ public class Client extends BaseClient {
     	Request("DeleteTemplate", kwargs);
     }
 
-    
+
     /**
      * 列出所有的虚拟机快照
-     * 
+     *
      * @param ids String[] 列出指定ID范围内的快照
      * @param timestamps String[] 列出指定时间戳的快照
      * @param instanceIds String[] 列出指定ID范围内的虚拟机的快照
@@ -481,10 +481,10 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeSnapshots", kwargs);
 		return Utils.getJSONResult(result, "SnapshotSet");
 	}
-    
+
     /**
      * 为指定虚拟机创建一个快照
-     * 
+     *
      * @param iid String 要创建快照的虚拟机ID
      * @param name String 快照名称（可选)
      * @throws Exception
@@ -494,13 +494,13 @@ public class Client extends BaseClient {
 		kwargs.put("InstanceId", iid);
 		if (name != null && name.length() > 0) {
 			kwargs.put("SnapshotName", name);
-		}		
+		}
 		Request("CreateSnapshot", kwargs);
 	}
-    
+
     /**
      * 删除指定虚拟机快照
-     * 
+     *
      * @param sid String 虚拟机快照的ID
      * @throws Exception
      */
@@ -509,10 +509,10 @@ public class Client extends BaseClient {
 		kwargs.put("SnapshotId", sid);
 		Request("DeleteSnapshot", kwargs);
 	}
-    
+
     /**
      * 将一台虚拟机重置为指定虚拟机快照的内容
-     * 
+     *
      * @param iid String 虚拟机ID
      * @param sid String 虚拟机快照的ID
      * @throws Exception
@@ -523,10 +523,10 @@ public class Client extends BaseClient {
 		kwargs.put("SnapshotId", sid);
 		Request("RestoreSnapshot", kwargs);
 	}
-    
+
     /**
      * 获得当前区域中所有的可用域
-     * 
+     *
      * @param limit int 最多返回数量
      * @param offset int 返回可用域的偏移量，用于分页显示
      * @return JSONObject 可用域列表
@@ -538,5 +538,145 @@ public class Client extends BaseClient {
 		JSONObject result = Request("DescribeAvailabilityZones", kwargs);
 		return result.getJSONObject("AvailabilityZoneSet");
     }
-    
+
+
+    /**
+     *	浮动IP相关接口
+     */
+
+    /**
+     *	创建浮动IP
+     *
+     *	@param name
+     *  @param billing_model string 代表计费方式，有效值：bandwidth，flow，分别代表按带宽和按流量计费。默认为bandwidth
+     *  @param availability_zone_id string 代表可用区ID, 通过DescribeAvailabilityZones接口获取
+     *  @return Address结构
+     */
+    public JSONObject AllocateAddress(String name, String billing_model, String availability_zone_id) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("Name", name);
+    	if (billing_model != null){
+    		billing_model = "bandwidth";
+    	}
+    	kwargs.put("BillingModel", billing_model);
+    	if (availability_zone_id != null){
+    		kwargs.put("AvailabilityZoneId", availability_zone_id);
+    	}
+
+		JSONObject result = Request("AllocateAddress", kwargs);
+		return result.getJSONObject("Address");
+    }
+
+    /**
+     * 返回所有或者部分浮动IP列表信息列表
+     *
+     *	@param allocation_ids string[] 希望获取的Address ID列表
+     *  @param limit int 返回的数量限制，用于分页控制
+     *  @param offset int 返回的偏移量，用于分页控制
+     *  @param filters Map<String, List<String>> 过滤器，一个dict，包含过滤字段名和值
+     *  @return AddressSet, 包含Address列表
+     */
+    public JSONObject DescribeAddresses(String[] allocation_ids, int limit, int offset, Map<String, List<String>> filters) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+		if (allocation_ids != null && allocation_ids.length > 0) {
+			kwargs.put("AllocationId", Utils.stringArray2JSONArray(allocation_ids));
+		}
+		parse_list_params(limit, offset, filters, kwargs);
+		JSONObject result = Request("DescribeAddresses", kwargs);
+		return Utils.getJSONResult(result, "AddressSet");
+    }
+
+    /**
+     *	配置浮动IP, 目前支持名称修改
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *  @param name string 浮动IP的名称
+     *  @return Address结构
+     */
+    public JSONObject ConfigAddress(String allocation_id, String name) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+    	kwargs.put("Name", name);
+
+		JSONObject result = Request("ConfigAddress", kwargs);
+		return result.getJSONObject("Address");
+    }
+
+    /**
+     *	配置浮动IP带宽
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *  @param bandwidth int 浮动IP的带宽
+     *  @return 请求是否成功
+     */
+    public JSONObject ConfigAddressBandwidth(String allocation_id, int bandwidth) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+    	if (bandwidth != 0){
+	    	kwargs.put("Bandwidth", bandwidth);
+    	}
+		JSONObject result = Request("ConfigAddressBandwidth", kwargs);
+		return result;
+    }
+
+    /**
+     *	释放浮动IP
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *  @return 请求是否成功
+     */
+    public JSONObject ReleaseAddress(String allocation_id) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+		JSONObject result = Request("ReleaseAddress", kwargs);
+		return result;
+    }
+
+    /**
+     *	绑定Fip到云产品上
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *  @param association_type string 绑定云产品类型。有效值为server、elb，分别代表绑定到云服务器和ELB负载均衡器
+     *  @param instance_id string 绑定的云产品ID
+     *  @param bandwidth int 浮动IP的带宽
+     *  @return 请求是否成功
+     */
+    public JSONObject AssociateAddress(String allocation_id, String association_type, String instance_id, int bandwidth) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+    	kwargs.put("AssociationType", association_type);
+    	kwargs.put("InstanceId", instance_id);
+    	kwargs.put("Bandwidth", bandwidth);
+		JSONObject result = Request("AssociateAddress", kwargs);
+		return result;
+    }
+
+    /**
+     *	将浮动IP解绑
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *  @return 请求是否成功
+     */
+    public JSONObject DisassociateAddress(String allocation_id) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+		JSONObject result = Request("DisassociateAddress", kwargs);
+		return result;
+    }
+
+     /**
+     *	将浮动IP换绑
+     *
+     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID
+     *  @return 请求是否成功
+     */
+    public JSONObject ReplaceAddress(String allocation_id, String newId) throws Exception {
+    	JSONObject kwargs = new JSONObject();
+    	kwargs.put("AllocationId", allocation_id);
+    	kwargs.put("NewAllocationId", newId);
+		JSONObject result = Request("ReplaceAddress", kwargs);
+		return result;
+    }
+
 }

@@ -589,7 +589,7 @@ public class Client extends BaseClient {
     /**
      *	配置浮动IP, 目前支持名称修改
      *
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @param name string 浮动IP的名称
      *  @return Address结构
      */
@@ -605,7 +605,7 @@ public class Client extends BaseClient {
     /**
      *	配置浮动IP带宽
      *
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @param bandwidth int 浮动IP的带宽
      *  @return 请求是否成功
      */
@@ -622,7 +622,7 @@ public class Client extends BaseClient {
     /**
      *	释放浮动IP
      *
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @return 请求是否成功
      */
     public JSONObject ReleaseAddress(String allocation_id) throws Exception {
@@ -635,7 +635,7 @@ public class Client extends BaseClient {
     /**
      *	绑定Fip到云产品上
      *
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @param association_type string 绑定云产品类型。有效值为server、elb，分别代表绑定到云服务器和ELB负载均衡器
      *  @param instance_id string 绑定的云产品ID
      *  @param bandwidth int 浮动IP的带宽
@@ -654,7 +654,7 @@ public class Client extends BaseClient {
     /**
      *	将浮动IP解绑
      *
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @return 请求是否成功
      */
     public JSONObject DisassociateAddress(String allocation_id) throws Exception {
@@ -667,8 +667,8 @@ public class Client extends BaseClient {
      /**
      *	将浮动IP换绑
      *
-     *	@param allocation_id string 浮动IP的ID
-     *	@param allocation_id string 浮动IP的ID
+     *	@param allocation_id string 浮动IP的ID（或者IP）
+     *	@param allocation_id string 浮动IP的ID（或者IP）
      *  @return 请求是否成功
      */
     public JSONObject ReplaceAddress(String allocation_id, String newId) throws Exception {

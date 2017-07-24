@@ -555,7 +555,7 @@ public class Client extends BaseClient {
     public JSONObject AllocateAddress(String name, String billing_model, String availability_zone_id) throws Exception {
     	JSONObject kwargs = new JSONObject();
     	kwargs.put("Name", name);
-    	if (billing_model != null){
+    	if (billing_model == null){
     		billing_model = "bandwidth";
     	}
     	kwargs.put("BillingModel", billing_model);
